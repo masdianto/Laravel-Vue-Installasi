@@ -19,9 +19,22 @@ class AttendanceController extends Controller
             'date' => 'required|date',
             'check_in' => 'required',
             'status' => 'required',
+            'face_image' => 'required|image',
+            'latitude' => 'required|numeric',
+            'longitude' => 'required|numeric',
         ]);
 
-        return Attendance::create($request->all());
+        $path = $request->file('face_image')->store('face_images', 'public');
+
+        return Attendance::create([
+            'employee_id' => $request->employee_id,
+            'date' => $request->date,
+            'check_in' => $request->check_in,
+            'status' => $request->status,
+            'face_image_path' => $path,
+            'latitude' => $request->latitude,
+            'longitude' => $request->longitude,
+        ]);
     }
 
     public function show(Attendance $attendance)
