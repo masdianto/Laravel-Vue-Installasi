@@ -102,3 +102,16 @@ Beberapa contoh peran default:
 *   Menambahkan fitur notifikasi (misalnya, notifikasi email untuk pengajuan cuti).
 *   Membuat dasbor analitik untuk HRD.
 *   Menambahkan unit test dan feature test untuk memastikan kualitas kode.
+
+## Akun Default
+
+Setelah menjalankan seeder, Anda dapat menggunakan akun-akun berikut untuk login:
+
+| Peran             | Email                    | Password   |
+| ----------------- | ------------------------ | ---------- |
+| Super Admin       | superadmin@example.com   | password   |
+| HRD               | hrd@example.com          | password   |
+| Manager           | manager@example.com      | password   |
+| Employee          | employee@example.com     | password   |
+| Finance           | finance@example.com      | password   |
+| Payroll Manager   | payroll@example.com      | password   |
