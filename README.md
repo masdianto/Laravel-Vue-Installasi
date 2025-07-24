@@ -154,3 +154,35 @@ Untuk memastikan repositori lokal Anda selalu yang terbaru dengan perubahan yang
     Jika ada konflik saat menggabungkan atau rebase, Anda perlu menyelesaikannya secara manual. Buka file yang konflik, edit, lalu tandai sebagai sudah diselesaikan dengan `git add <nama_file>`. Setelah semua konflik selesai, lanjutkan proses merge atau rebase.
 
 Dengan mengikuti langkah-langkah ini, Anda dapat dengan mudah menjaga repositori lokal Anda tetap sinkron dengan repositori utama.
+
+## Praktik Terbaik dan Konvensi Kode
+
+Proyek ini berusaha untuk mengikuti praktik terbaik dalam pengembangan perangkat lunak untuk memastikan kode yang bersih, dapat dipelihara, dan dapat diandalkan.
+
+### 1. Validasi Request (Form Request Classes)
+
+*   **Apa:** Semua validasi untuk request yang masuk harus ditempatkan di dalam class Form Request terpisah di direktori `app/Http/Requests`.
+*   **Mengapa:** Ini membuat controller tetap bersih dan fokus pada logika utamanya, serta memisahkan aturan validasi ke dalam class yang dapat digunakan kembali.
+
+### 2. Logika Bisnis (Service Classes)
+
+*   **Apa:** Logika bisnis yang kompleks atau logika yang dapat digunakan kembali di beberapa tempat harus diekstraksi ke dalam Service Class di direktori `app/Services`.
+*   **Mengapa:** Ini mengikuti prinsip Single Responsibility, membuat kode lebih mudah diuji, dan meningkatkan keterbacaan controller.
+
+### 3. Respons API (API Resources)
+
+*   **Apa:** Semua respons API harus diformat menggunakan class API Resource di direktori `app/Http/Resources`.
+*   **Mengapa:** Ini memastikan format respons yang konsisten di seluruh API, memberikan lapisan transformasi antara model Eloquent dan output JSON, dan memudahkan untuk mengontrol data apa yang diekspos.
+
+### 4. Pengujian (Testing)
+
+*   **Apa:** Setiap fungsionalitas baru harus disertai dengan pengujian yang relevan (Unit atau Feature test).
+*   **Mengapa:** Pengujian memastikan bahwa kode berfungsi seperti yang diharapkan, mencegah regresi, dan memberikan kepercayaan diri saat melakukan refactoring.
+
+### 5. Konvensi Penamaan
+
+*   Proyek ini mengikuti konvensi penamaan standar Laravel (PSR-12).
+*   **Controller:** `NamaFiturController` (misalnya, `EmployeeController`).
+*   **Model:** `NamaModel` (misalnya, `Employee`).
+*   **Migration:** `create_nama_tabel_table` (misalnya, `create_employees_table`).
+*   **Dan seterusnya...**

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StorePayrollRequest;
 use App\Models\Payroll;
 use Illuminate\Http\Request;
 
@@ -12,17 +13,9 @@ class PayrollController extends Controller
         return Payroll::with('employee')->get();
     }
 
-    public function store(Request $request)
+    public function store(StorePayrollRequest $request)
     {
-        $request->validate([
-            'employee_id' => 'required|exists:employees,id',
-            'pay_date' => 'required|date',
-            'gross_salary' => 'required|numeric',
-            'net_salary' => 'required|numeric',
-            'status' => 'required',
-        ]);
-
-        return Payroll::create($request->all());
+        return Payroll::create($request->validated());
     }
 
     public function show(Payroll $payroll)
