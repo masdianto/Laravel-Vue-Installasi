@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreLeaveRequest;
 use App\Models\Leave;
 use Illuminate\Http\Request;
 
@@ -12,17 +13,9 @@ class LeaveController extends Controller
         return Leave::with('employee')->get();
     }
 
-    public function store(Request $request)
+    public function store(StoreLeaveRequest $request)
     {
-        $request->validate([
-            'employee_id' => 'required|exists:employees,id',
-            'start_date' => 'required|date',
-            'end_date' => 'required|date|after_or_equal:start_date',
-            'reason' => 'required',
-            'status' => 'required',
-        ]);
-
-        return Leave::create($request->all());
+        return Leave::create($request->validated());
     }
 
     public function show(Leave $leave)

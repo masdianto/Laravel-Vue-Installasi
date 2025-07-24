@@ -2,47 +2,34 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreEmployeeRequest;
+use App\Http\Requests\UpdateEmployeeRequest;
+use App\Http\Resources\EmployeeResource;
 use App\Models\Employee;
-use Illuminate\Http\Request;
 
 class EmployeeController extends Controller
 {
     public function index()
     {
-        return Employee::all();
+        return EmployeeResource::collection(Employee::all());
     }
 
-    public function store(Request $request)
+    public function store(StoreEmployeeRequest $request)
     {
-        $request->validate([
-            'name' => 'required',
-            'email' => 'required|email|unique:employees',
-            'position' => 'required',
-            'salary' => 'required|numeric',
-            'hire_date' => 'required|date',
-        ]);
-
-        return Employee::create($request->all());
+        $employee = Employee::create($request->validated());
+        return new EmployeeResource($employee);
     }
 
     public function show(Employee $employee)
     {
-        return $employee;
+        return new EmployeeResource($employee);
     }
 
-    public function update(Request $request, Employee $employee)
+    public function update(UpdateEmployeeRequest $request, Employee $employee)
     {
-        $request->validate([
-            'name' => 'required',
-            'email' => 'required|email|unique:employees,email,' . $employee->id,
-            'position' => 'required',
-            'salary' => 'required|numeric',
-            'hire_date' => 'required|date',
-        ]);
+        $employee->update($request->validated());
 
-        $employee->update($request->all());
-
-        return $employee;
+        return new EmployeeResource($employee);
     }
 
     public function destroy(Employee $employee)

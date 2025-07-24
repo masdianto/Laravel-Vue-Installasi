@@ -2,39 +2,31 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreAttendanceRequest;
 use App\Models\Attendance;
+use App\Services\AttendanceService;
 use Illuminate\Http\Request;
 
 class AttendanceController extends Controller
 {
+    protected $attendanceService;
+
+    public function __construct(AttendanceService $attendanceService)
+    {
+        $this->attendanceService = $attendanceService;
+    }
+
     public function index()
     {
         return Attendance::with('employee')->get();
     }
 
-    public function store(Request $request)
+    public function store(StoreAttendanceRequest $request)
     {
-        $request->validate([
-            'employee_id' => 'required|exists:employees,id',
-            'date' => 'required|date',
-            'check_in' => 'required',
-            'status' => 'required',
-            'face_image' => 'required|image',
-            'latitude' => 'required|numeric',
-            'longitude' => 'required|numeric',
-        ]);
-
-        $path = $request->file('face_image')->store('face_images', 'public');
-
-        return Attendance::create([
-            'employee_id' => $request->employee_id,
-            'date' => $request->date,
-            'check_in' => $request->check_in,
-            'status' => $request->status,
-            'face_image_path' => $path,
-            'latitude' => $request->latitude,
-            'longitude' => $request->longitude,
-        ]);
+        return $this->attendanceService->createAttendance(
+            $request->validated(),
+            $request->file('face_image')
+        );
     }
 
     public function show(Attendance $attendance)
