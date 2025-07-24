@@ -1,66 +1,104 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Sistem Manajemen HRD
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Aplikasi berbasis web untuk mengelola data karyawan, absensi, cuti, dan penggajian dalam suatu perusahaan. Dibangun menggunakan framework Laravel di sisi backend dan Vue.js di sisi frontend.
 
-## About Laravel
+## Persyaratan Sistem
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+*   **Server:**
+    *   PHP >= 8.1
+    *   Composer
+    *   Database (MySQL, PostgreSQL, dll. yang didukung oleh Laravel)
+*   **Klien (Browser):**
+    *   Browser web modern seperti Chrome, Firefox, Safari, atau Edge.
+    *   Node.js dan NPM (untuk pengembangan frontend)
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Fungsi dan Fitur Utama
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+1.  **Manajemen Karyawan:**
+    *   Menambah, mengubah, dan menghapus data karyawan.
+    *   Melihat daftar semua karyawan beserta detailnya (nama, email, posisi, gaji, dll.).
+    *   Pencarian dan filter data karyawan.
+    *   Mencatat riwayat pergerakan karyawan (mutasi, promosi, resign, perpanjangan kontrak).
+2.  **Manajemen Absensi:**
+    *   Mencatat absensi harian karyawan (check-in dan check-out).
+    *   Melihat riwayat absensi per karyawan.
+    *   Mengelola status absensi (hadir, sakit, izin, dll.).
+3.  **Manajemen Cuti:**
+    *   Karyawan dapat mengajukan cuti.
+    *   Admin HRD dapat menyetujui atau menolak pengajuan cuti.
+    *   Melihat riwayat cuti karyawan.
+4.  **Manajemen Penggajian (Payroll):**
+    *   Menghasilkan slip gaji untuk setiap karyawan.
+    *   Menghitung gaji kotor, potongan, dan gaji bersih.
+    *   Melihat riwayat penggajian.
 
-## Learning Laravel
+## Role Akses dan Hak Akses
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+Aplikasi ini memiliki sistem manajemen peran yang fleksibel. Peran dan izin dapat dikonfigurasi secara dinamis oleh Super Admin.
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+Beberapa contoh peran default:
+1.  **Super Admin:** Memiliki semua izin dan dapat mengelola peran dan izin lainnya.
+2.  **HRD:** Mengelola tugas-tugas terkait SDM.
+3.  **Manager:** Mengelola tim karyawan.
+4.  **Employee:** Pengguna biasa dengan akses terbatas.
+5.  **Finance:** Mengelola tugas-tugas keuangan.
+6.  **Payroll Manager:** Mengelola penggajian karyawan.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## Tahapan Instalasi Secara Detail
 
-## Laravel Sponsors
+1.  **Clone Repository:**
+    ```bash
+    git clone <URL_repositori>
+    ```
+2.  **Masuk ke Direktori Proyek:**
+    ```bash
+    cd <nama_direktori_proyek>
+    ```
+3.  **Instal Dependensi PHP:**
+    ```bash
+    composer install
+    ```
+4.  **Instal Dependensi JavaScript:**
+    ```bash
+    npm install
+    ```
+5.  **Konfigurasi Lingkungan:**
+    *   Salin file `.env.example` menjadi `.env`.
+      ```bash
+      cp .env.example .env
+      ```
+    *   Buka file `.env` dan konfigurasikan koneksi database Anda (DB_CONNECTION, DB_HOST, DB_PORT, DB_DATABASE, DB_USERNAME, DB_PASSWORD).
+6.  **Generate Kunci Aplikasi:**
+    ```bash
+    php artisan key:generate
+    ```
+7.  **Jalankan Migrasi Database:**
+    ```bash
+    php artisan migrate
+    ```
+8.  **Compile Aset Frontend:**
+    *   Untuk pengembangan:
+      ```bash
+      npm run dev
+      ```
+    *   Untuk produksi:
+      ```bash
+      npm run build
+      ```
+9.  **Jalankan Server Pengembangan:**
+    ```bash
+    php artisan serve
+    ```
+10. **Akses Aplikasi:**
+    *   Buka browser Anda dan kunjungi `http://127.0.0.1:8000/hrd` untuk melihat aplikasi.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+## Pengembangan Lebih Lanjut yang Mungkin Dilakukan
 
-### Premium Partners
-
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+*   Dasbor berbasis peran untuk pengalaman pengguna yang disesuaikan.
+*   Manajemen shift dan zona lokasi untuk absensi.
+*   Implementasi sistem otentikasi dan otorisasi untuk peran Admin dan Karyawan.
+*   Membangun antarmuka pengguna (UI) yang lebih lengkap dan interaktif untuk setiap fitur menggunakan komponen Vue yang telah dibuat.
+*   Menambahkan fungsionalitas CRUD (Create, Read, Update, Delete) yang lengkap pada setiap komponen Vue dengan menghubungkannya ke API yang sudah ada.
+*   Menambahkan fitur notifikasi (misalnya, notifikasi email untuk pengajuan cuti).
+*   Membuat dasbor analitik untuk HRD.
+*   Menambahkan unit test dan feature test untuk memastikan kualitas kode.

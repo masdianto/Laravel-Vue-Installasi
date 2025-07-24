@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use App\Models\Role;
 
 class User extends Authenticatable
 {
@@ -42,4 +43,35 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class);
+    }
+
+    public function hasRole($role)
+    {
+        if (is_string($role)) {
+            return $this->roles->contains('name', $role);
+        }
+
+        return !!$role->intersect($this->roles)->count();
+    }
+
+    public function hasPermission(Permission $permission)
+    {
+        return $this->hasRole($permission->roles);
+    }
+
+    protected static function booted()
+    {
+        static::creating(function ($user) {
+            if ($user->roles()->count() === 0) {
+                $employeeRole = Role::where('name', 'Employee')->first();
+                if ($employeeRole) {
+                    $user->roles()->attach($employeeRole);
+                }
+            }
+        });
+    }
 }

@@ -17,6 +17,16 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+use Illuminate\Support\Facades\Auth;
+
+Route::get('/hrd', function () {
+    return view('hrd');
+});
+
+Route::get('/dashboard', function () {
+    return view('dashboard', ['user' => Auth::user()->load('roles')]);
+})->middleware('auth');
+
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

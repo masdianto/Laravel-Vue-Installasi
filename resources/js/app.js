@@ -7,33 +7,22 @@
 import './bootstrap';
 import { createApp } from 'vue';
 
-/**
- * Next, we will create a fresh Vue application instance. You may then begin
- * registering components with the application instance so they are ready
- * to use in your application's views. An example is included for you.
- */
+import EmployeeManagement from './components/EmployeeManagement.vue';
+import AttendanceManagement from './components/AttendanceManagement.vue';
+import LeaveManagement from './components/LeaveManagement.vue';
+import PayrollManagement from './components/PayrollManagement.vue';
 
 const app = createApp({});
 
-import ExampleComponent from './components/ExampleComponent.vue';
-app.component('example-component', ExampleComponent);
+app.component('employee-management', EmployeeManagement);
+app.component('attendance-management', AttendanceManagement);
+app.component('leave-management', LeaveManagement);
+app.component('payroll-management', PayrollManagement);
 
-/**
- * The following block of code may be used to automatically register your
- * Vue components. It will recursively scan this directory for the Vue
- * components and automatically register them with their "basename".
- *
- * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
- */
+import RoleManagement from './components/RoleManagement.vue';
+app.component('role-management', RoleManagement);
 
-// Object.entries(import.meta.glob('./**/*.vue', { eager: true })).forEach(([path, definition]) => {
-//     app.component(path.split('/').pop().replace(/\.\w+$/, ''), definition.default);
-// });
-
-/**
- * Finally, we will attach the application instance to a HTML element with
- * an "id" attribute of "app". This element is included with the "auth"
- * scaffolding. Otherwise, you will need to add an element yourself.
- */
+import Dashboard from './components/Dashboard.vue';
+app.component('dashboard', Dashboard);
 
 app.mount('#app');
