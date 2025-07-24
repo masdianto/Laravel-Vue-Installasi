@@ -27,5 +27,9 @@ class PermissionSeeder extends Seeder
 
         // Finance
         Permission::create(['name' => 'view_financial_reports', 'description' => 'View financial reports']);
+
+        // Employee
+        Permission::create(['name' => 'view_own_profile', 'description' => 'View own profile']);
+        Permission::create(['name' => 'submit_leave_request', 'description' => 'Submit a leave request']);
     }
 }
