@@ -19,4 +19,7 @@ app.component('attendance-management', AttendanceManagement);
 app.component('leave-management', LeaveManagement);
 app.component('payroll-management', PayrollManagement);
 
+import RoleManagement from './components/RoleManagement.vue';
+app.component('role-management', RoleManagement);
+
 app.mount('#app');

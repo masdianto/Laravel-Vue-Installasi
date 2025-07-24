@@ -65,3 +65,70 @@ This endpoint is used to record an employee's clock-out time.
 *   **Error Response:**
     *   **Code:** 422 Unprocessable Entity
     *   **Content:** (Validation errors)
+
+## Role Management
+
+### Get All Roles
+
+*   **URL:** `/api/roles`
+*   **Method:** `GET`
+*   **Success Response:**
+    *   **Code:** 200 OK
+    *   **Content:** (An array of role objects)
+
+### Create Role
+
+*   **URL:** `/api/roles`
+*   **Method:** `POST`
+*   **Parameters:**
+    *   `name` (required, string): The name of the role.
+    *   `description` (optional, string): A description of the role.
+*   **Success Response:**
+    *   **Code:** 201 Created
+    *   **Content:** (The new role object)
+
+### Update Role
+
+*   **URL:** `/api/roles/{id}`
+*   **Method:** `PUT` or `PATCH`
+*   **Parameters:**
+    *   `name` (optional, string): The new name of the role.
+    *   `description` (optional, string): The new description of the role.
+*   **Success Response:**
+    *   **Code:** 200 OK
+    *   **Content:** (The updated role object)
+
+### Delete Role
+
+*   **URL:** `/api/roles/{id}`
+*   **Method:** `DELETE`
+*   **Success Response:**
+    *   **Code:** 204 No Content
+
+### Assign Permission to Role
+
+*   **URL:** `/api/roles/{id}/permissions`
+*   **Method:** `POST`
+*   **Parameters:**
+    *   `permission_id` (required, integer): The ID of the permission to assign.
+*   **Success Response:**
+    *   **Code:** 204 No Content
+
+### Revoke Permission from Role
+
+*   **URL:** `/api/roles/{id}/permissions`
+*   **Method:** `DELETE`
+*   **Parameters:**
+    *   `permission_id` (required, integer): The ID of the permission to revoke.
+*   **Success Response:**
+    *   **Code:** 204 No Content
+
+## Permission Management
+
+### Get All Permissions
+
+*   **URL:** `/api/permissions`
+*   **Method:** `GET`
+*   **Success Response:**
+    *   **Code:** 200 OK
+    *   **Content:** (An array of permission objects)

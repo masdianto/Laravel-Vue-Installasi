@@ -34,18 +34,13 @@ Aplikasi berbasis web untuk mengelola data karyawan, absensi, cuti, dan penggaji
 
 ## Role Akses dan Hak Akses
 
-Aplikasi ini dirancang untuk memiliki beberapa peran pengguna dengan hak akses yang berbeda:
+Aplikasi ini memiliki sistem manajemen peran yang fleksibel. Peran dan izin dapat dikonfigurasi secara dinamis oleh Super Admin.
 
-1.  **Admin/HRD:**
-    *   Memiliki akses penuh ke semua fitur aplikasi.
-    *   Dapat mengelola data semua karyawan.
-    *   Dapat mengelola data absensi, cuti, dan penggajian.
-    *   Dapat menyetujui atau menolak pengajuan cuti.
-2.  **Karyawan (Employee):**
-    *   Dapat melihat dan mengubah data profilnya sendiri.
-    *   Dapat melihat riwayat absensi dan penggajiannya sendiri.
-    *   Dapat mengajukan cuti.
-    *   (Fitur ini perlu diimplementasikan lebih lanjut dengan sistem login per pengguna).
+Beberapa contoh peran default:
+1.  **Super Admin:** Memiliki semua izin dan dapat mengelola peran dan izin lainnya.
+2.  **HRD:** Mengelola tugas-tugas terkait SDM.
+3.  **Manager:** Mengelola tim karyawan.
+4.  **Employee:** Pengguna biasa dengan akses terbatas.
 
 ## Tahapan Instalasi Secara Detail
 

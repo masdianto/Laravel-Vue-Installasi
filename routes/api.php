@@ -41,6 +41,13 @@ Route::get('employees/{employee}/movements', [EmployeeController::class, 'moveme
 Route::apiResource('attendances', AttendanceController::class);
 Route::apiResource('leaves', LeaveController::class);
 use App\Http\Controllers\EmployeeMovementController;
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\PermissionController;
 
 Route::apiResource('payrolls', PayrollController::class);
 Route::apiResource('employee-movements', EmployeeMovementController::class);
+
+Route::apiResource('roles', RoleController::class);
+Route::post('roles/{role}/permissions', [RoleController::class, 'assignPermission']);
+Route::delete('roles/{role}/permissions', [RoleController::class, 'revokePermission']);
+Route::apiResource('permissions', PermissionController::class)->only(['index']);
