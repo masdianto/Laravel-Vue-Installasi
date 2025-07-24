@@ -65,7 +65,7 @@ class User extends Authenticatable
 
     protected static function booted()
     {
-        static::creating(function ($user) {
+        static::created(function ($user) {
             if ($user->roles()->count() === 0) {
                 $employeeRole = Role::where('name', 'Employee')->first();
                 if ($employeeRole) {

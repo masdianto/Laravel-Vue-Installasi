@@ -44,7 +44,7 @@ class UserSeeder extends Seeder
             'email' => 'employee@example.com',
             'password' => Hash::make('password'),
         ]);
-        // The 'Employee' role is attached automatically by the User model's creating event
+        $employee->roles()->attach(Role::where('name', 'Employee')->first());
 
         // Finance
         $finance = User::create([
