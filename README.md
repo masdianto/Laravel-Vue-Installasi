@@ -41,6 +41,8 @@ Beberapa contoh peran default:
 2.  **HRD:** Mengelola tugas-tugas terkait SDM.
 3.  **Manager:** Mengelola tim karyawan.
 4.  **Employee:** Pengguna biasa dengan akses terbatas.
+5.  **Finance:** Mengelola tugas-tugas keuangan.
+6.  **Payroll Manager:** Mengelola penggajian karyawan.
 
 ## Tahapan Instalasi Secara Detail
 

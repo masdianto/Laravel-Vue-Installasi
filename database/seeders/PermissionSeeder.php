@@ -21,6 +21,11 @@ class PermissionSeeder extends Seeder
         Permission::create(['name' => 'manage_roles', 'description' => 'Manage roles and permissions']);
 
         // Payroll Management
-        Permission::create(['name' => 'manage_payroll', 'description' => 'Manage payroll']);
+        Permission::create(['name' => 'view_payroll', 'description' => 'View payroll']);
+        Permission::create(['name' => 'edit_payroll', 'description' => 'Edit payroll']);
+        Permission::create(['name' => 'approve_payroll', 'description' => 'Approve payroll']);
+
+        // Finance
+        Permission::create(['name' => 'view_financial_reports', 'description' => 'View financial reports']);
     }
 }
