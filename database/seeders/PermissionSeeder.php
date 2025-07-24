@@ -31,5 +31,11 @@ class PermissionSeeder extends Seeder
         // Employee
         Permission::create(['name' => 'view_own_profile', 'description' => 'View own profile']);
         Permission::create(['name' => 'submit_leave_request', 'description' => 'Submit a leave request']);
+
+        // Shift Management
+        Permission::create(['name' => 'manage_shifts', 'description' => 'Manage shifts']);
+
+        // Zone Management
+        Permission::create(['name' => 'manage_zones', 'description' => 'Manage zones']);
     }
 }

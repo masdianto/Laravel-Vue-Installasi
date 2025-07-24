@@ -22,4 +22,7 @@ app.component('payroll-management', PayrollManagement);
 import RoleManagement from './components/RoleManagement.vue';
 app.component('role-management', RoleManagement);
 
+import Dashboard from './components/Dashboard.vue';
+app.component('dashboard', Dashboard);
+
 app.mount('#app');

@@ -94,6 +94,8 @@ Beberapa contoh peran default:
 
 ## Pengembangan Lebih Lanjut yang Mungkin Dilakukan
 
+*   Dasbor berbasis peran untuk pengalaman pengguna yang disesuaikan.
+*   Manajemen shift dan zona lokasi untuk absensi.
 *   Implementasi sistem otentikasi dan otorisasi untuk peran Admin dan Karyawan.
 *   Membangun antarmuka pengguna (UI) yang lebih lengkap dan interaktif untuk setiap fitur menggunakan komponen Vue yang telah dibuat.
 *   Menambahkan fungsionalitas CRUD (Create, Read, Update, Delete) yang lengkap pada setiap komponen Vue dengan menghubungkannya ke API yang sudah ada.

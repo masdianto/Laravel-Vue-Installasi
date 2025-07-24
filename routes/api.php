@@ -50,4 +50,16 @@ Route::apiResource('employee-movements', EmployeeMovementController::class);
 Route::apiResource('roles', RoleController::class);
 Route::post('roles/{role}/permissions', [RoleController::class, 'assignPermission']);
 Route::delete('roles/{role}/permissions', [RoleController::class, 'revokePermission']);
+use App\Http\Controllers\ShiftController;
+
 Route::apiResource('permissions', PermissionController::class)->only(['index']);
+
+use App\Http\Controllers\ZoneController;
+
+Route::apiResource('shifts', ShiftController::class);
+Route::post('shifts/{shift}/employees', [ShiftController::class, 'assignEmployee']);
+Route::delete('shifts/{shift}/employees', [ShiftController::class, 'revokeEmployee']);
+
+Route::apiResource('zones', ZoneController::class);
+Route::post('zones/{zone}/employees', [ZoneController::class, 'assignEmployee']);
+Route::delete('zones/{zone}/employees', [ZoneController::class, 'revokeEmployee']);

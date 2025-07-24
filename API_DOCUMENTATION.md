@@ -132,3 +132,123 @@ This endpoint is used to record an employee's clock-out time.
 *   **Success Response:**
     *   **Code:** 200 OK
     *   **Content:** (An array of permission objects)
+
+## Shift Management
+
+### Get All Shifts
+
+*   **URL:** `/api/shifts`
+*   **Method:** `GET`
+*   **Success Response:**
+    *   **Code:** 200 OK
+    *   **Content:** (An array of shift objects)
+
+### Create Shift
+
+*   **URL:** `/api/shifts`
+*   **Method:** `POST`
+*   **Parameters:**
+    *   `name` (required, string): The name of the shift.
+    *   `start_time` (required, time): The start time of the shift.
+    *   `end_time` (required, time): The end time of the shift.
+*   **Success Response:**
+    *   **Code:** 201 Created
+    *   **Content:** (The new shift object)
+
+### Update Shift
+
+*   **URL:** `/api/shifts/{id}`
+*   **Method:** `PUT` or `PATCH`
+*   **Parameters:**
+    *   `name` (optional, string): The new name of the shift.
+    *   `start_time` (optional, time): The new start time of the shift.
+    *   `end_time` (optional, time): The new end time of the shift.
+*   **Success Response:**
+    *   **Code:** 200 OK
+    *   **Content:** (The updated shift object)
+
+### Delete Shift
+
+*   **URL:** `/api/shifts/{id}`
+*   **Method:** `DELETE`
+*   **Success Response:**
+    *   **Code:** 204 No Content
+
+### Assign Employee to Shift
+
+*   **URL:** `/api/shifts/{id}/employees`
+*   **Method:** `POST`
+*   **Parameters:**
+    *   `employee_id` (required, integer): The ID of the employee to assign.
+*   **Success Response:**
+    *   **Code:** 204 No Content
+
+### Revoke Employee from Shift
+
+*   **URL:** `/api/shifts/{id}/employees`
+*   **Method:** `DELETE`
+*   **Parameters:**
+    *   `employee_id` (required, integer): The ID of the employee to revoke.
+*   **Success Response:**
+    *   **Code:** 204 No Content
+
+## Zone Management
+
+### Get All Zones
+
+*   **URL:** `/api/zones`
+*   **Method:** `GET`
+*   **Success Response:**
+    *   **Code:** 200 OK
+    *   **Content:** (An array of zone objects)
+
+### Create Zone
+
+*   **URL:** `/api/zones`
+*   **Method:** `POST`
+*   **Parameters:**
+    *   `name` (required, string): The name of the zone.
+    *   `latitude` (required, numeric): The latitude of the zone's center.
+    *   `longitude` (required, numeric): The longitude of the zone's center.
+    *   `radius` (required, numeric): The radius of the zone in meters.
+*   **Success Response:**
+    *   **Code:** 201 Created
+    *   **Content:** (The new zone object)
+
+### Update Zone
+
+*   **URL:** `/api/zones/{id}`
+*   **Method:** `PUT` or `PATCH`
+*   **Parameters:**
+    *   `name` (optional, string): The new name of the zone.
+    *   `latitude` (optional, numeric): The new latitude of the zone's center.
+    *   `longitude` (optional, numeric): The new longitude of the zone's center.
+    *   `radius` (optional, numeric): The new radius of the zone in meters.
+*   **Success Response:**
+    *   **Code:** 200 OK
+    *   **Content:** (The updated zone object)
+
+### Delete Zone
+
+*   **URL:** `/api/zones/{id}`
+*   **Method:** `DELETE`
+*   **Success Response:**
+    *   **Code:** 204 No Content
+
+### Assign Employee to Zone
+
+*   **URL:** `/api/zones/{id}/employees`
+*   **Method:** `POST`
+*   **Parameters:**
+    *   `employee_id` (required, integer): The ID of the employee to assign.
+*   **Success Response:**
+    *   **Code:** 204 No Content
+
+### Revoke Employee from Zone
+
+*   **URL:** `/api/zones/{id}/employees`
+*   **Method:** `DELETE`
+*   **Parameters:**
+    *   `employee_id` (required, integer): The ID of the employee to revoke.
+*   **Success Response:**
+    *   **Code:** 204 No Content
