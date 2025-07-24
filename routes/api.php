@@ -37,6 +37,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::apiResource('employees', EmployeeController::class);
+Route::get('employees/{employee}/movements', [EmployeeController::class, 'movements']);
 Route::apiResource('attendances', AttendanceController::class);
 Route::apiResource('leaves', LeaveController::class);
+use App\Http\Controllers\EmployeeMovementController;
+
 Route::apiResource('payrolls', PayrollController::class);
+Route::apiResource('employee-movements', EmployeeMovementController::class);
