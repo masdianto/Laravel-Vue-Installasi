@@ -115,3 +115,42 @@ Setelah menjalankan seeder, Anda dapat menggunakan akun-akun berikut untuk login
 | Employee          | employee@example.com     | password   |
 | Finance           | finance@example.com      | password   |
 | Payroll Manager   | payroll@example.com      | password   |
+
+## Sinkronisasi dengan Repositori Remote
+
+Untuk memastikan repositori lokal Anda selalu yang terbaru dengan perubahan yang dibuat di repositori remote (misalnya, oleh Jules di Google), ikuti langkah-langkah berikut:
+
+1.  **Tambahkan Remote (jika belum ada):**
+    Jika Anda belum menambahkan repositori remote, Anda dapat melakukannya dengan perintah berikut. Ganti `<URL_repositori_remote>` dengan URL repositori di GitHub.
+    ```bash
+    git remote add origin <URL_repositori_remote>
+    ```
+
+2.  **Fetch Perubahan Terbaru:**
+    Ambil semua perubahan terbaru dari repositori remote tanpa menggabungkannya ke branch lokal Anda.
+    ```bash
+    git fetch origin
+    ```
+
+3.  **Lihat Perbedaan (Opsional):**
+    Jika Anda ingin melihat perbedaan antara branch lokal Anda dan branch di remote, Anda dapat menggunakan perintah berikut. Ganti `<nama_branch>` dengan nama branch yang ingin Anda bandingkan (misalnya, `main` atau `master`).
+    ```bash
+    git diff <nama_branch> origin/<nama_branch>
+    ```
+
+4.  **Gabungkan (Merge) atau Rebase Perubahan:**
+    *   **Menggunakan Merge (Disarankan untuk pemula):**
+        Perintah ini akan menggabungkan perubahan dari remote ke branch lokal Anda.
+        ```bash
+        git merge origin/<nama_branch>
+        ```
+    *   **Menggunakan Rebase (Untuk riwayat commit yang lebih bersih):**
+        Perintah ini akan menempatkan perubahan lokal Anda di atas perubahan dari remote.
+        ```bash
+        git rebase origin/<nama_branch>
+        ```
+
+5.  **Selesaikan Konflik (jika ada):**
+    Jika ada konflik saat menggabungkan atau rebase, Anda perlu menyelesaikannya secara manual. Buka file yang konflik, edit, lalu tandai sebagai sudah diselesaikan dengan `git add <nama_file>`. Setelah semua konflik selesai, lanjutkan proses merge atau rebase.
+
+Dengan mengikuti langkah-langkah ini, Anda dapat dengan mudah menjaga repositori lokal Anda tetap sinkron dengan repositori utama.
