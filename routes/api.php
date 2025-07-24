@@ -18,7 +18,6 @@ use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\LeaveController;
 use App\Http\Controllers\PayrollController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
