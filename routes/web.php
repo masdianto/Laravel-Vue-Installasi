@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,19 +15,17 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('/login');
 });
 
-use Illuminate\Support\Facades\Auth;
-
-Route::get('/hrd', function () {
-    return view('hrd');
-});
+Auth::routes();
 
 Route::get('/dashboard', function () {
     return view('dashboard', ['user' => Auth::user()->load('roles')]);
 })->middleware('auth');
 
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// The /hrd route is kept for now as it might be used for other purposes,
+// but it can be removed if it's confirmed to be unused.
+Route::get('/hrd', function () {
+    return view('hrd');
+});
