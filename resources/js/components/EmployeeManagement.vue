@@ -1,48 +1,48 @@
 <template>
-  <div>
-    <h1>Employee Management</h1>
-
-    <!-- Employee List -->
-    <ul>
-      <li v-for="employee in employees" :key="employee.id">
-        {{ employee.name }} - {{ employee.position }}
-        <button @click="showMovementForm(employee)">Record Movement</button>
-      </li>
-    </ul>
-
-    <!-- Movement Form -->
-    <div v-if="selectedEmployee">
-      <h2>Record Movement for {{ selectedEmployee.name }}</h2>
-      <form @submit.prevent="recordMovement">
-        <label>Type:</label>
-        <select v-model="movement.type" required>
-          <option value="promotion">Promotion</option>
-          <option value="mutation">Mutation</option>
-          <option value="resignation">Resignation</option>
-          <option value="contract_extension">Contract Extension</option>
-        </select>
-        <br>
-        <label>Description:</label>
-        <textarea v-model="movement.description"></textarea>
-        <br>
-        <label>Effective Date:</label>
-        <input type="date" v-model="movement.effective_date" required>
-        <br>
-        <button type="submit">Record</button>
-        <button @click="cancelMovement">Cancel</button>
-      </form>
+  <div class="card">
+    <div class="card-header pb-0">
+      <h6>Employees</h6>
     </div>
-
-    <!-- Movement History -->
-    <div v-if="selectedEmployee">
-        <h3>Movement History for {{ selectedEmployee.name }}</h3>
-        <ul>
-            <li v-for="movement in movements" :key="movement.id">
-                {{ movement.type }} - {{ movement.effective_date }}
-            </li>
-        </ul>
+    <div class="card-body px-0 pt-0 pb-2">
+      <div class="table-responsive p-0">
+        <table class="table align-items-center mb-0">
+          <thead>
+            <tr>
+              <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Employee</th>
+              <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Position</th>
+              <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Hire Date</th>
+              <th class="text-secondary opacity-7"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="employee in employees" :key="employee.id">
+              <td>
+                <div class="d-flex px-2 py-1">
+                  <div>
+                    <!-- <img src="../assets/img/team-2.jpg" class="avatar avatar-sm me-3" alt="user1"> -->
+                  </div>
+                  <div class="d-flex flex-column justify-content-center">
+                    <h6 class="mb-0 text-sm">{{ employee.name }}</h6>
+                    <p class="text-xs text-secondary mb-0">{{ employee.email }}</p>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <p class="text-xs font-weight-bold mb-0">{{ employee.position }}</p>
+              </td>
+              <td class="align-middle text-center">
+                <span class="text-secondary text-xs font-weight-bold">{{ employee.hire_date }}</span>
+              </td>
+              <td class="align-middle">
+                <a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
+                  Edit
+                </a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
-
   </div>
 </template>
 
@@ -52,53 +52,15 @@ export default {
   data() {
     return {
       employees: [],
-      selectedEmployee: null,
-      movements: [],
-      movement: {
-        employee_id: null,
-        type: 'promotion',
-        description: '',
-        effective_date: '',
-      }
     };
   },
   methods: {
     getEmployees() {
       axios.get('/api/employees')
         .then(response => {
-          this.employees = response.data;
+          this.employees = response.data.data;
         });
     },
-    showMovementForm(employee) {
-      this.selectedEmployee = employee;
-      this.movement.employee_id = employee.id;
-      this.getMovements(employee.id);
-    },
-    cancelMovement() {
-      this.selectedEmployee = null;
-      this.movement = {
-        employee_id: null,
-        type: 'promotion',
-        description: '',
-        effective_date: '',
-      };
-    },
-    recordMovement() {
-      axios.post('/api/employee-movements', this.movement)
-        .then(response => {
-          // Handle success
-          this.cancelMovement();
-        })
-        .catch(error => {
-          // Handle error
-        });
-    },
-    getMovements(employeeId) {
-        axios.get(`/api/employees/${employeeId}/movements`)
-            .then(response => {
-                this.movements = response.data;
-            });
-    }
   },
   mounted() {
     this.getEmployees();
