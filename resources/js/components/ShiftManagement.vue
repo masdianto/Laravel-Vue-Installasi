@@ -1,33 +1,40 @@
 <template>
-  <div>
-    <h2>Shift Management</h2>
-
-    <!-- Shift List -->
-    <ul>
-      <li v-for="shift in shifts" :key="shift.id">
-        {{ shift.name }} ({{ shift.start_time }} - {{ shift.end_time }})
-        <button @click="editShift(shift)">Edit</button>
-      </li>
-    </ul>
-
-    <!-- Shift Form -->
-    <div v-if="editingShift">
-      <h3>Edit Shift: {{ editingShift.name }}</h3>
-      <form @submit.prevent="updateShift">
-        <label>Name:</label>
-        <input type="text" v-model="editingShift.name" required>
-        <br>
-        <label>Start Time:</label>
-        <input type="time" v-model="editingShift.start_time" required>
-        <br>
-        <label>End Time:</label>
-        <input type="time" v-model="editingShift.end_time" required>
-        <br>
-        <button type="submit">Update</button>
-        <button @click="cancelEdit">Cancel</button>
-      </form>
+  <div class="card">
+    <div class="card-header pb-0">
+      <h6>Shifts</h6>
     </div>
-
+    <div class="card-body px-0 pt-0 pb-2">
+      <div class="table-responsive p-0">
+        <table class="table align-items-center mb-0">
+          <thead>
+            <tr>
+              <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Shift</th>
+              <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Time</th>
+              <th class="text-secondary opacity-7"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="shift in shifts" :key="shift.id">
+              <td>
+                <div class="d-flex px-2 py-1">
+                  <div class="d-flex flex-column justify-content-center">
+                    <h6 class="mb-0 text-sm">{{ shift.name }}</h6>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <p class="text-xs font-weight-bold mb-0">{{ shift.start_time }} - {{ shift.end_time }}</p>
+              </td>
+              <td class="align-middle">
+                <a href="javascript:;" @click="editShift(shift)" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit shift">
+                  Edit
+                </a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -49,16 +56,6 @@ export default {
     },
     editShift(shift) {
       this.editingShift = { ...shift };
-    },
-    cancelEdit() {
-      this.editingShift = null;
-    },
-    updateShift() {
-      axios.put(`/api/shifts/${this.editingShift.id}`, this.editingShift)
-        .then(response => {
-          this.getShifts();
-          this.cancelEdit();
-        });
     },
   },
   mounted() {

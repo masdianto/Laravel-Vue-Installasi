@@ -1,38 +1,34 @@
 <template>
-  <div class="container-fluid py-4">
-    <div class="row">
-      <div class="col-lg-12">
-        <div class="row">
-          <div class="col-lg-3 col-md-6 col-12">
-            <div class="card mb-4">
-              <div class="card-body p-3">
-                <div class="row">
-                  <div class="col-8">
-                    <div class="numbers">
-                      <p class="text-sm mb-0 text-capitalize font-weight-bold">Today's Money</p>
-                      <h5 class="font-weight-bolder mb-0">
-                        $53,000
-                        <span class="text-success text-sm font-weight-bolder">+55%</span>
-                      </h5>
-                    </div>
-                  </div>
-                  <div class="col-4 text-end">
-                    <div class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md">
-                      <i class="ni ni-money-coins text-lg opacity-10" aria-hidden="true"></i>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- Other cards go here -->
+  <div>
+    <!-- Static sidebar for desktop -->
+    <div class="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-72 lg:flex-col">
+      <div class="flex grow flex-col gap-y-5 overflow-y-auto bg-gray-900 px-6 pb-4">
+        <div class="flex h-16 shrink-0 items-center">
+          <img class="h-8 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500" alt="Your Company">
         </div>
-        <div class="row mt-4">
-          <div class="col-lg-12">
-            <component :is="dashboardComponent"></component>
-          </div>
-        </div>
+        <nav class="flex flex-1 flex-col">
+          <ul role="list" class="flex flex-1 flex-col gap-y-7">
+            <li>
+              <ul role="list" class="-mx-2 space-y-1">
+                <li v-for="item in filteredNavigation" :key="item.name">
+                  <a :href="item.href" :class="[item.current ? 'bg-gray-800 text-white' : 'text-gray-400 hover:text-white hover:bg-gray-800', 'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold']">
+                    <component :is="item.icon" class="h-6 w-6 shrink-0" aria-hidden="true" />
+                    {{ item.name }}
+                  </a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </nav>
       </div>
+    </div>
+
+    <div class="lg:pl-72">
+      <main class="py-10">
+        <div class="px-4 sm:px-6 lg:px-8">
+          <component :is="dashboardComponent"></component>
+        </div>
+      </main>
     </div>
   </div>
 </template>
@@ -43,6 +39,25 @@ import HrdDashboard from './dashboards/HrdDashboard.vue';
 import ManagerDashboard from './dashboards/ManagerDashboard.vue';
 import EmployeeDashboard from './dashboards/EmployeeDashboard.vue';
 import FinanceDashboard from './dashboards/FinanceDashboard.vue';
+import {
+  ChartBarSquareIcon,
+  Cog6ToothIcon,
+  FolderIcon,
+  GlobeAltIcon,
+  ServerIcon,
+  SignalIcon,
+} from '@heroicons/vue/24/outline'
+
+const allNavigation = [
+  { name: 'Dashboard', href: '#', icon: FolderIcon, current: true, meta: { roles: ['Super Admin', 'HRD', 'Manager', 'Finance', 'Employee'] } },
+  { name: 'Employees', href: '#', icon: ServerIcon, current: false, meta: { roles: ['HRD'] } },
+  { name: 'Attendance', href: '#', icon: SignalIcon, current: false, meta: { roles: ['HRD'] } },
+  { name: 'Leaves', href: '#', icon: GlobeAltIcon, current: false, meta: { roles: ['HRD'] } },
+  { name: 'Payroll', href: '#', icon: ChartBarSquareIcon, current: false, meta: { roles: ['Finance'] } },
+  { name: 'Role Management', href: '#', icon: Cog6ToothIcon, current: false, meta: { roles: ['Super Admin'] } },
+  { name: 'Shift Management', href: '#', icon: Cog6ToothIcon, current: false, meta: { roles: ['Super Admin'] } },
+  { name: 'Zone Management', href: '#', icon: Cog6ToothIcon, current: false, meta: { roles: ['Super Admin'] } },
+];
 
 export default {
   name: "Dashboard",
@@ -61,19 +76,17 @@ export default {
   },
   computed: {
     dashboardComponent() {
-      if (this.user.roles.some(role => role.name === 'Super Admin')) {
-        return 'SuperAdminDashboard';
-      }
-      if (this.user.roles.some(role => role.name === 'HRD')) {
-        return 'HrdDashboard';
-      }
-      if (this.user.roles.some(role => role.name === 'Manager')) {
-        return 'ManagerDashboard';
-      }
-      if (this.user.roles.some(role => role.name === 'Finance')) {
-        return 'FinanceDashboard';
-      }
+      if (this.user.roles.some(role => role.name === 'Super Admin')) return 'SuperAdminDashboard';
+      if (this.user.roles.some(role => role.name === 'HRD')) return 'HrdDashboard';
+      if (this.user.roles.some(role => role.name === 'Manager')) return 'ManagerDashboard';
+      if (this.user.roles.some(role => role.name === 'Finance')) return 'FinanceDashboard';
       return 'EmployeeDashboard';
+    },
+    filteredNavigation() {
+        return allNavigation.filter(item => {
+            if (!item.meta || !item.meta.roles) return true; // Show item if no roles are specified
+            return this.user.roles.some(userRole => item.meta.roles.includes(userRole.name));
+        });
     }
   }
 };
